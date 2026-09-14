@@ -14,21 +14,21 @@ module.exports.register = (program) => {
         .option('--clean')
         .option('--macos-bundle')
         .action(async (command) => {
-            if (command.configFile) {
-                constants.files.configFile = command.configFile;
-                utils.log(`Using config file: ${constants.files.configFile}`);
+            if(command.configFile) {
+             constants.files.configFile = command.configFile;
+             utils.log(`Using config file: ${constants.files.configFile}`);
             }
 
             utils.checkCurrentProject();
             const configObj = config.get()
             const buildDir = configObj.cli.distributionPath ? utils.trimPath(configObj.cli.distributionPath) : 'dist';
-            if (command.clean) {
+            if(command.clean) {
                 utils.log(`Cleaning previous build files from ${buildDir}...`);
                 utils.clearDirectory(buildDir);
             }
             utils.log('Bundling app...');
             await bundler.bundleApp({
-                release: command.release,
+                release: command.release, 
                 embedResources: command.embedResources,
                 copyStorage: command.copyStorage,
                 macosBundle: command.macosBundle
